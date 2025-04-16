@@ -9,7 +9,7 @@ export default class CartItemModel{
         this.id = id;
     }
 
-    static add(productID, userID, quantity){
+     add(productID, userID, quantity){
         const cartItem = new CartItemModel(
             productID,
             userID,
@@ -42,3 +42,4 @@ var cartItems = [
     new CartItemModel(1, 2, 1, 1),
     new CartItemModel(2, 2, 3, 2),
 ]
+

@@ -19,16 +19,17 @@ export default class ProductController{
 
     async addProduct(req, res){
       try{
-      const { name, price, sizes, desc, category } = req.body;
+      const { name, price, sizes, description, categories } = req.body;
       const newProduct = new ProductModel(
         name,
-        desc,
+        description,
         parseFloat(price),
-        req.file.filename,
-        category,
-        sizes.split(','),
+        req?.file?.filename,
+        categories,
+        sizes?.split(','),
     );
-      const createdRecord = await this.productRepository.add(newProduct);
+    const createdRecord = await this.productRepository.add(newProduct);
+    console.log(createdRecord);
       res.status(201).send(createdRecord);
     }catch(err){
         console.log(err);
@@ -39,21 +40,21 @@ export default class ProductController{
 
     async rateProduct(req, res, next){
         try{
-        console.log(req.query);
+        // console.log(req.query);
+        console.log(req.body);
         const userID = req.userID;
-        const productID = req.query.productID;
-        const rating = req.query.rating;
-        try{
-        const error = await this.productRepository.rate(
+        const productID = req.body.productID;
+        const rating = req.body.rating;
+        
+        await this.productRepository.rate(
             userID,
             productID,
             rating
         );
-    }
         // console.log(error);
-        catch(err){
-            return res.status(400).send(err.message);
-        }
+    
+        // console.log(error);
+       
         return res.status(200).send("Rating has been added");
     }catch(err){
         console.log(err);
@@ -90,5 +91,16 @@ export default class ProductController{
     }
     }
 
-    
+    async averagePrice(req, res, next){
+        try{
+            const result = await this.productRepository.averageProductPricePerCategory();
+            res.status(200).send(result);
+        }catch(err){
+                console.log(err);
+                throw new ApplicationError(
+                    "Something went wrong in the database",
+                    500
+                )
+            }
+    }
 }

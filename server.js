@@ -14,6 +14,12 @@ import cors from 'cors';
 import loggerMiddleware from './src/middlewares/logger.middleware.js';
 import { ApplicationError } from './src/error-handler/application.Error.js';
 import {connectToMongoDB} from './src/config/mongodb.js';
+import orderRouter from "./src/features/order/order.routes.js";
+import { connectUsingMongoose } from "./src/config/mongooseConfig.js";
+import mongoose from "mongoose";
+import likesRouter from "./src/features/like/like.routes.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
 // const apiDocs = await import('./swagger.json', { assert: { type: 'json' } });
 // 2. create server
@@ -47,9 +53,11 @@ server.use(express.json());
 
 server.use('/api-docs', swagger.serve, swagger.setup(apiDocs));
 server.use(loggerMiddleware);
+server.use('/api/orders', jwtAuth, orderRouter);
 server.use('/api/products',jwtAuth, productRouter);
-server.use('/api/users', userRouter);
 server.use('/api/cartItems',loggerMiddleware, jwtAuth, cartRouter);
+server.use('/api/users', userRouter);
+server.use('/api/likes', jwtAuth, likesRouter)
 
 // 3. default request handler
 server.get('/', (req, res)=>{
@@ -59,8 +67,12 @@ server.get('/', (req, res)=>{
 // Error handler middleware
 server.use((err, req, res, next)=>{
     console.log(err);
+
+    if(err instanceof mongoose.Error.ValidationError){
+        return res.status(400).send(err.message);
+    }
     if(err instanceof ApplicationError){
-        res.status(err.code).send(err.message);
+       return res.status(err.code).send(err.message);
     }
     // server errors.
     res.status(500).send(
@@ -74,5 +86,6 @@ server.use((req, res)=>{
 server.listen(3200, ()=>{
 
     console.log('server is running at 3200');
-    connectToMongoDB();
+    // connectToMongoDB();
+    connectUsingMongoose();
 });
