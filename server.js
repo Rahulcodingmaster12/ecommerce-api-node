@@ -21,6 +21,7 @@ import likesRouter from "./src/features/like/like.routes.js";
 import dotenv from 'dotenv';
 dotenv.config();
 
+const PORT = process.env.PORT || 3200;
 // const apiDocs = await import('./swagger.json', { assert: { type: 'json' } });
 // 2. create server
 const server = express();
@@ -80,12 +81,24 @@ server.use((err, req, res, next)=>{
     );
 });
 
-server.use((req, res)=>{
-    res.status(404).send("API not found.Please check our documentation for more information at localhost:3200/api-docs")
-})
-server.listen(3200, ()=>{
 
-    console.log('server is running at 3200');
-    // connectToMongoDB();
-    connectUsingMongoose();
-});
+(async function start(){
+    try{
+        await connectUsingMongoose();
+        server.listen(PORT, ()=>{
+            console.log(`server is running at ${PORT}`);
+        });
+    }catch(err){
+        console.error("Failed to start server", err);
+        process.exit(1);
+    }
+})();
+// server.use((req, res)=>{
+//     res.status(404).send("API not found.Please check our documentation for more information at localhost:3200/api-docs")
+// })
+// server.listen(3200, ()=>{
+
+//     console.log('server is running at 3200');
+//     // connectToMongoDB();
+//     connectUsingMongoose();
+// });

@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-// import dotenv from "dotenv";
+import dotenv from "dotenv";
 import { categorySchema } from "../features/product/category.schema.js";
 
 
@@ -8,7 +8,7 @@ const url = process.env.DB_URL;
 
 export const connectUsingMongoose = async()=>{
     try{
-        await mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true, serverSelectionTimeoutMS: 10000}).then(
+        await mongoose.connect(url, {useNewUrlParser: true, directConnection:true, useUnifiedTopology: true, serverSelectionTimeoutMS: 10000}).then(
             ()=>{
 
                 console.log("Mongodb using mongoose is connected");
