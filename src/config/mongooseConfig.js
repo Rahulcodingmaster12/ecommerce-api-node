@@ -5,6 +5,7 @@ import { categorySchema } from "../features/product/category.schema.js";
 
 
 const url = process.env.DB_URL;
+console.log(url);
 
 export const connectUsingMongoose = async()=>{
     try{

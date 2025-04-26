@@ -21,7 +21,7 @@ import likesRouter from "./src/features/like/like.routes.js";
 import dotenv from 'dotenv';
 dotenv.config();
 
-const PORT = process.env.PORT || 10000;
+const PORT = 3200;
 // const apiDocs = await import('./swagger.json', { assert: { type: 'json' } });
 // 2. create server
 const server = express();
