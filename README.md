@@ -1,32 +1,33 @@
-🛒 E-Commerce REST API
-📌 Tech Stack
-Backend: Node.js, Express.js
-Database: MongoDB
-Authentication: JWT
-Tools: Postman, VS Code
+# 🛒 E-commerce Backend API
 
-🔥 Features
-User Registration & Login with JWT
-Product Management (CRUD)
-Cart Items Handling
-Role-based Access Control
-Modular Route Handling & Middleware
-🚀 How to Run Locally
-git clone https://github.com/Rahulcodingmaster12/ecommerce-api-node.git
-cd ecommerce-api-node
-npm install
-npm start
-📂 Folder Structure
-├── routes/
-├── controllers/
-├── models/
-├── middleware/
-├── utils/
-└── server.js
-📷 Screenshots
-Add screenshots here if needed (e.g., Postman test results)
+This is a full-featured backend for an ecommerce platform built using Node.js, Express, and MongoDB.
 
-🙋‍♂️ Author
-Rahul Chouhan
-📧 rahulchouhan300@gmail.com
-🔗 LinkedIn
+## 🚀 Live Demo
+[https://e-commerce-api-a5pq.onrender.com](https://e-commerce-api-a5pq.onrender.com)
+
+## 🔧 Tech Stack
+- Node.js
+- Express.js
+- MongoDB
+- JWT for auth
+- REST APIs
+
+## 📦 Features
+- User Authentication (JWT)
+- CRUD operations for Products
+- Cart & Order Management
+- Admin routes
+
+## 📫 API Endpoints
+
+| Method | Route              | Description           |
+|--------|-------------------|-----------------------|
+| POST   | /api/register      | Register new user     |
+| POST   | /api/login         | Login user (JWT)      |
+| GET    | /api/products      | Get all products      |
+| POST   | /api/products      | Add product (admin)   |
+| PUT    | /api/products/:id  | Update product        |
+| DELETE | /api/products/:id  | Delete product        |
+
+## 🧪 Test with Postman
+You can test APIs with Postman using the above routes.
