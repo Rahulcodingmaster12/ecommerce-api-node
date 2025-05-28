@@ -22,12 +22,12 @@ This is a full-featured backend for an ecommerce platform built using Node.js, E
 
 | Method | Route              | Description           |
 |--------|-------------------|-----------------------|
-| POST   | /api/register      | Register new user     |
-| POST   | /api/login         | Login user (JWT)      |
+| POST   | /api/users/signup      | Register new user     |
+| POST   | /api/users/signin         | Login user (JWT)      |
 | GET    | /api/products      | Get all products      |
 | POST   | /api/products      | Add product (admin)   |
-| PUT    | /api/products/:id  | Update product        |
-| DELETE | /api/products/:id  | Delete product        |
+| GET    | /api/products/filter  | Filter products        |
+| GET | /api/products/:id  | Get one product        |
 
 ## 🧪 Test with Postman
 You can test APIs with Postman using the above routes.
